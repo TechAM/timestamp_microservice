@@ -32,15 +32,14 @@ app.get("/api/timestamp/:date", (req, res)=>{
 
   if(!param.includes("-")){
     let unix_timestamp = parseInt(req.params.date)
-    date = new Date(unix_timestamp*1000)
+    date = new Date(unix_timestamp)
     unix = unix_timestamp
   }else{
     date = new Date(param)
-    unix = Math.round(date.getTime()/1000);
+    unix = Math.round(date.getTime()/1000)*1000;
   }
   response.unix = unix
   response.utc = date.toUTCString()
-
 
   res.json(response)
 })

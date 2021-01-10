@@ -30,7 +30,9 @@ app.get("/api/timestamp/:date", (req, res)=>{
   let date
   let response = {}
 
-  if(!param.includes("-")){
+  console.log(param)
+
+  if(!param.includes("-") && !param.includes("/")){
     let unix_timestamp = parseInt(req.params.date)
     date = new Date(unix_timestamp)
     unix = unix_timestamp

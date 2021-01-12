@@ -38,17 +38,32 @@ app.get("/api/timestamp/:date", (req, res)=>{
   let date
   let response = {}
 
-
-  if(!param.includes("-") && !param.includes("/") && !param.includes(".")){
+  if(isNaN(param)){
+    date = new Date(param)
+    if(date=="Invalid Date"){
+      console.log("hehe invalid bro")
+      res.status(400).json({error:"Invalid Date"})
+    }
+    unix = Math.round(date.getTime()/1000)*1000;
+  }else{
     let unix_timestamp = parseInt(req.params.date)
     date = new Date(unix_timestamp)
     unix = unix_timestamp
-  }else{
-    date = new Date(param)
-    if(date=="Invalid Date")
-    res.status(400).json({error:"Invalid Date"})
-    unix = Math.round(date.getTime()/1000)*1000;
   }
+
+  // if(!param.includes("-") && !param.includes("/") && !param.includes(".")){
+  //   let unix_timestamp = parseInt(req.params.date)
+  //   date = new Date(unix_timestamp)
+  //   unix = unix_timestamp
+  // }else{
+  //   date = new Date(param)
+  //   if(date=="Invalid Date"){
+  //     console.log("hehe invalid bro")
+  //     res.status(400).json({error:"Invalid Date"})
+  //   }
+  //   unix = Math.round(date.getTime()/1000)*1000;
+  // }
+  
   response.unix = unix
   response.utc = date.toUTCString()
 

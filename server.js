@@ -41,8 +41,7 @@ app.get("/api/timestamp/:date", (req, res)=>{
   if(isNaN(param)){
     date = new Date(param)
     if(date=="Invalid Date"){
-      console.log("hehe invalid bro")
-      res.status(400).json({error:"Invalid Date"})
+      res.json({ error : "Invalid Date" })
     }
     unix = Math.round(date.getTime()/1000)*1000;
   }else{
@@ -63,7 +62,7 @@ app.get("/api/timestamp/:date", (req, res)=>{
   //   }
   //   unix = Math.round(date.getTime()/1000)*1000;
   // }
-  
+
   response.unix = unix
   response.utc = date.toUTCString()
 
